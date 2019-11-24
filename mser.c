@@ -1,3 +1,5 @@
+#include "mser.h"
+
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -7,14 +9,16 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <pthread.h>
+
 struct client_info {
 	int sockno;
 	char ip[INET_ADDRSTRLEN];
 };
+
 int clients[100];
 int n = 0;
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 void sendtoall(char *msg,int curr)
 {
@@ -25,6 +29,8 @@ void sendtoall(char *msg,int curr)
 			if(send(clients[i],msg,strlen(msg),0) < 0) {
 				perror("sending failure");
 				continue;
+			}else{
+				printf("%s\n", msg);
 			}
 		}
 	}
@@ -59,9 +65,10 @@ void *recvmg(void *sock)
 	pthread_mutex_unlock(&mutex);
 }
 
-
-int main(int argc,char *argv[])
+// arg[0] = port
+void *mainserver(void *inputPORTs)
 {
+	int inputPORT = *((int *)inputPORTs);
 	struct sockaddr_in my_addr,their_addr;
 	int my_sock;
 	int their_sock;
@@ -71,13 +78,13 @@ int main(int argc,char *argv[])
 	char msg[500];
 	int len;
 	struct client_info cl;
-	char ip[INET_ADDRSTRLEN];;
-	;
-	if(argc > 2) {
-		printf("too many arguments");
-		exit(1);
-	}
-	portno = atoi(argv[1]);
+	char ip[INET_ADDRSTRLEN];
+	
+	// if(argc > 2) {
+	// 	printf("too many arguments");
+	// 	exit(1);
+	// }
+	portno = inputPORT;
 	my_sock = socket(AF_INET,SOCK_STREAM,0);
 	memset(my_addr.sin_zero,'\0',sizeof(my_addr.sin_zero));
 	my_addr.sin_family = AF_INET;
@@ -85,7 +92,7 @@ int main(int argc,char *argv[])
 	my_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
 	their_addr_size = sizeof(their_addr);
 
-	if(bind(my_sock,(struct sockaddr *)&my_addr,sizeof(my_addr)) != 0) {
+	if((bind(my_sock,(struct sockaddr *)&my_addr,sizeof(my_addr))) != 0) {
 		perror("binding unsuccessful");
 		exit(1);
 	}
@@ -110,5 +117,5 @@ int main(int argc,char *argv[])
 		pthread_create(&recvt,NULL,recvmg,&cl);
 		pthread_mutex_unlock(&mutex);
 	}
-	return 0;
+	//return 99;
 }
