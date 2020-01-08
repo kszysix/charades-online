@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <meta http-equiv="Content-Type" const="text/html;charset=UTF-8" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script> <!-- jQuery -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+  </head>
+
+  <body>
+
+    <h1>Welcome to game nr:</h1><h1 id="gamenumber"></h1>
+    <button id="back_to_menu" class="vertical-align" type="button">Game over - exit to menu</button>
+    <h3>Your username: </h3><h3 id="username"></h3>
+    <div id='message-container'>
+        <!-- chat messages -->
+    </div>
+
+    <p></p>
+
+    <section id="input_zone"> 
+      <input id="message" class="vertical-align" type="text" />
+      <button id="send_message" class="vertical-align" type="button">Send</button>
+    </section>
+    <h2 id="info"></h2>
+    <p></p>
+
+    <canvas id="myCanvas" width="600" height="400" style="border:1px solid #000000;">
+    </canvas> 
+
+    <script src="playergame.js"></script>
+  </body>
+</html>

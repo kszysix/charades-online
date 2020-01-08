@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <meta http-equiv="Content-Type" const="text/html;charset=UTF-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous">
+    </script> <!-- jQuery -->
+
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+  </head>
+
+  <body>
+    <h1>Menu:</h1>
+
+    <section>
+        <button id="create_game" type="button">Create a new game</button>
+        <p></p>
+        <button id="find_game" type="button">Find a game</button>
+        <p></p>
+        <button id="exit" type="button">Exit</button>
+    </section>
+    <h2 id="info"></h2>
+    <script src="menu.js"></script>
+  </body>
+</html>
